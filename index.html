@@ -63,7 +63,7 @@
       setTimeout(function () {
         try { window.removeEventListener('resize', resizeCanvas); } catch (e) {}
         try { fire.reset(); } catch (e) {}
-        // try { canvas.remove(); } catch (e) {}
+        try { canvas.remove(); } catch (e) {}
       }, 4500);
     });
   })();
