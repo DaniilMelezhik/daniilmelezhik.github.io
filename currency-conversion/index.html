@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"
+      style="font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Currency Conversion</title>
+    <link rel="icon" type="image/png" sizes="128x128" href="icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="342c18d5-c51e-4b15-b20b-7beecea5a73c"></script>
+</head>
+<body>
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%">
+    <div style="font-size: 2.5rem; padding-top: 2rem;">🎉 Thanks for installing Currency Conversion! 🎉</div>
+    <div style="padding-top: 2rem; font-size: 1.8rem;">1. Pin the extension for quick access to the Currency Conversion.</div>
+    <img style="padding-top: 1rem; font-size: 1.8rem;" src="First_step.png" width="700" alt="Pin the extension."/>
+    <div style="padding-top: 2rem; font-size: 1.8rem;">2. Click on the icon to open Currency Conversion extension.</div>
+    <img style="padding-top: 1rem; font-size: 1.8rem;" src="Second_step.png" width="700" alt="Click on the extension."/>
+</div>
+
+<canvas id="confetti-canvas"
+        style="position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script>
+  (function () {
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    var canvas = document.getElementById('confetti-canvas');
+    if (!canvas || !window.confetti) return;
+
+    var dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+    function resizeCanvas() {
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas, { passive: true });
+
+    var fire = window.confetti.create(canvas, { resize: false, useWorker: true });
+
+    // One-time burst on open
+    requestAnimationFrame(function () {
+      fire({
+        particleCount: 130,
+        spread: 75,
+        startVelocity: 55,
+        gravity: 1.1,
+        origin: { x: 0.5, y: 0.22 }
+      });
+
+      // Slight second burst for richness
+      setTimeout(function () {
+        fire({
+          particleCount: 90,
+          spread: 110,
+          startVelocity: 45,
+          gravity: 1.15,
+          origin: { x: 0.5, y: 0.25 }
+        });
+      }, 140);
+
+      // Stop and free resources
+      setTimeout(function () {
+        try { window.removeEventListener('resize', resizeCanvas); } catch (e) {}
+        try { fire.reset(); } catch (e) {}
+        try { canvas.remove(); } catch (e) {}
+      }, 4500);
+    });
+  })();
+</script>
+</body>
+</html>
